@@ -1,7 +1,7 @@
 import unittest
 
 from auth import cfg
-from auth.ldap_client import LdapClient, LdapEntry
+from auth.ldap_api import LdapClient, LdapEntry
 
 
 class TestLdap(unittest.TestCase):
