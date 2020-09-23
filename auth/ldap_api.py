@@ -8,7 +8,7 @@ from ldap3.core.exceptions import LDAPBindError
 
 from auth import cfg
 
-__all__ = ['LdapClient']
+__all__ = ['LdapApi']
 
 
 class LdapEntry(NamedTuple):
@@ -18,7 +18,7 @@ class LdapEntry(NamedTuple):
     email: str
 
 
-class LdapClient(object):
+class LdapApi(object):
     __slots__ = ['_server']
 
     def __init__(self):
@@ -60,7 +60,7 @@ class LdapClient(object):
                          full_name=dc['cn'][0],
                          email=dc['mail'][0])
 
-    def search(self, user_id: str) -> Optional[LdapEntry]:
+    def get_entry(self, user_id: str) -> Optional[LdapEntry]:
         def callback(conn: Connection) -> List[Entry]:
             conn.search(
                 search_base=cfg.LDAP3_BASE_DN,
