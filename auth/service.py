@@ -12,5 +12,7 @@ class Service(object):
     def __init__(self):
         self.app = web.Application()
         self._auth_api = AuthApi()
-        self.app.router.add_routes(
-            [web.post(f'{cfg.REST_URL_PREFIX}/login', self._auth_api.login)])
+        self.app.router.add_routes([
+            web.post(f'{cfg.REST_URL_PREFIX}/login', self._auth_api.login),
+            web.get(f'{cfg.REST_URL_PREFIX}/auth', self._auth_api.auth)
+        ])

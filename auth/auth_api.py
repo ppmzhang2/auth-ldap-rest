@@ -25,3 +25,12 @@ class AuthApi(object):
         else:
             return web.json_response(
                 status=401, data={'message': 'invalid user name or password'})
+
+    async def auth(self, request: Request):
+        token = request.headers.get('token')
+        is_valid = self._jwt.validate(token)
+        if is_valid:
+            return web.json_response(status=200, data={'message': 'passed'})
+        else:
+            return web.json_response(status=401,
+                                     data={'message': 'invalid token'})
