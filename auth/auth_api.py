@@ -16,8 +16,8 @@ class AuthApi(object):
 
     async def login(self, request: Request):
         data = await request.post()
-        usr = data.get('user')
-        pwd = data.get('password')
+        usr = data.getone('user', default='invalid_usr')
+        pwd = data.getone('password', default='invalid_pwd')
         is_valid = self._ldap.validate(usr=usr, pwd=pwd)
         if is_valid:
             token = self._jwt.get_token(usr)
