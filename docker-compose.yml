@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  proxy:
+    image: nginx:latest
+    volumes:
+      - ./etc/nginx:/etc/nginx/conf.d
+      - ./logs/nginx:/var/log/nginx
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - restnet
+  wsgi:
+    build: .
+    environment:
+      - ENV=test
+    restart: always
+    volumes:
+      - ./logs/wsgi:/var/log/supervisord
+    networks:
+      - restnet
+
+networks:
+  restnet:
