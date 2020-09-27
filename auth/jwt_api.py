@@ -43,7 +43,7 @@ class JwtApi(metaclass=SingletonMeta):
     def __init__(self):
         self._secret = JwtApi._random_alphanumeric_string(JwtApi._SECRET_LEN)
 
-    def get_token(self, user_id: str, duration: int = 86400) -> bytes:
+    def get_token(self, user_id: str, duration: int = 86400) -> str:
         """create token for a user
 
         :param user_id: user to receive the token, store in payload
@@ -56,9 +56,9 @@ class JwtApi(metaclass=SingletonMeta):
         return jwt.encode(payload=payload,
                           key=self._secret,
                           algorithm=self._ALGORITHM,
-                          headers=headers)
+                          headers=headers).decode()
 
-    def validate(self, token: bytes):
+    def validate(self, token: str):
         try:
             jwt.decode(token,
                        key=self._secret,
