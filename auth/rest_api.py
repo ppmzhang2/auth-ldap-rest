@@ -7,7 +7,7 @@ from auth.jwt_api import JwtApi
 from auth.ldap_api import LdapApi
 
 
-class AuthApi(object):
+class RestApi(object):
     __slots__ = ['_jwt', '_ldap']
 
     def __init__(self):
